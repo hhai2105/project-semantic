@@ -1,0 +1,2 @@
+#+TITLE: Project Semantic
+#+DESCRIPTION: A knowledge finder using semantic search based on vectorization and MATHEMATICS
