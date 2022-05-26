@@ -1,3 +1,14 @@
 #+TITLE: Project Semantic
 #+DESCRIPTION: A knowledge finder using semantic search based on vectorization and MATHEMATICS
-* REQUIREMENTS
+
+* Description
+A knowledge finder using semantic search based on vectorization and MATHEMATICS
+
+* Frontend
+** TODO Implement authentication
+** TODO Implement pdf upload
+** TODO Implement search bar
+* Backend
+** TODO Connect javascript to python script
+** TODO Implement mongoose database
+** TODO merge with frontend
