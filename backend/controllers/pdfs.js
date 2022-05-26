@@ -6,7 +6,19 @@ const router = express.Router();
 export const getPdfs = async (req,res) =>{
     try{
 	if(!req.userId) return res.json({message: "unauthenticated"});
-	const pdf = await Pdf.find({users: req.userId});
+	const pdf = await Pdf.find({userId: req.userId}).select('name');
+	res.status(200).json(pdf);
+    }catch(err){
+	res.status(400).json("error: " + err);
+    }
+};
+
+export const getPdfData = async (req,res) =>{
+    try{
+	if(!req.userId) return res.json({message: "unauthenticated"});
+        console.log(req.body.id)
+	const pdf = await Pdf.findById(req.body.id).select('selectedFile');
+        console.log(pdf)
 	res.status(200).json(pdf);
     }catch(err){
 	res.status(400).json("error: " + err);
@@ -14,12 +26,10 @@ export const getPdfs = async (req,res) =>{
 };
 
 export const createPdf = async (req,res) => {
-    console.log(req);
     if(!req.userId) return res.json({message: "unauthenticated"});
-    const {name, selectedFile} = req.body;
+    const {name, base64} = req.body;
     const userId = req.userId;
-    const newPdf = new Pdf({ name, userId , selectedFile});
-    console.log(newPdf)
+    const newPdf = new Pdf({ name, userId , selectedFile: base64});
     try {
         await newPdf.save();
         res.status(201).json(newPdf);

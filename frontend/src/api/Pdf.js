@@ -11,8 +11,10 @@ instance.interceptors.request.use((req) => {
 
 export const getPdfs = () => instance.get("/pdfs");
 export const createPdf = (newPdf) => {
-    console.log(newPdf)
     return instance.post("/pdfs/add", newPdf);
+};
+export const getPdfData = (pdf) => {
+    return instance.post("/pdfs/get", pdf);
 };
 export const updatePdf = (pdf) => instance.patch("/pdfs/update", pdf);
 export const deletePdf = (id) => instance.delete(`/pdfs/delete/${id}`);   

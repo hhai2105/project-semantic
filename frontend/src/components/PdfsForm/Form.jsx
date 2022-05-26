@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { createPdf } from "../../actions/Pdfs.js";
 import AddIcon from "@mui/icons-material/Add";
 import axios from 'axios';
+import FileBase from 'react-file-base64';
 
 const Form = () => {
     const dispatch = useDispatch();
@@ -17,34 +18,19 @@ const Form = () => {
 
     function handleSubmit(e){
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("myFile", selectedFile, selectedFile.name);
-        console.log(formData.get("myFile"))
-        axios.post("http://localhost:5000/pdfs/add", formData);
-        // dispatch(createPdf(formData));
+        console.log(selectedFile)
+        dispatch(createPdf(selectedFile));
         hideForm();
     }
-
     return (
         <>
-            <IconButton onClick={showForm} variant="outlined">
-                <AddIcon/>
-            </IconButton>
+            <Button onClick={showForm} variant="contained">
+                Create PDF
+            </Button>
             <Dialog open={show} onClose={hideForm}>
                 <DialogTitle>Create Pdf</DialogTitle>
                 <DialogContent>
-                    <Typography>{selectedFile?.name}</Typography>
-                    <Button
-                        variant="contained"
-                        component="label"
-                    >
-                        Upload File
-                        <input
-                            type="file"
-                            hidden
-                            onChange={(e)=>{setSelectedFile(e.target.files[0])}}
-                        />
-                    </Button>
+                    <FileBase hidden type="file" multiple={false} onDone={(e) => setSelectedFile(e)} />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={hideForm}>Cancel</Button>

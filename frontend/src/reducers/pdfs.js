@@ -1,9 +1,11 @@
-import {OPEN_PDF, FETCH_ALL_PDF, CREATE_PDF, UPDATE_PDF, DELETE_PDF} from "../constants/actions.js";
+import {OPEN_PDF, FETCH_PDF_DATA, FETCH_ALL_PDF, CREATE_PDF, UPDATE_PDF, DELETE_PDF} from "../constants/actions.js";
 
-const PdfReducer = (state = {pdfs: [], openPdf: null},action) => {
+const PdfReducer = (state = {pdfs: [], openPdf: null, pdfData: null},action) => {
     switch (action.type) {
     case FETCH_ALL_PDF:
         return {...state, pdfs: action.payload};
+    case FETCH_PDF_DATA:
+        return {...state, pdfData: action.payload};
     case OPEN_PDF:
         return {...state, openPdf: action.payload};
     case CREATE_PDF:

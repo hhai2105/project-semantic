@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const pdfSchema = new Schema({
     userId: {type: String, required: true},
     name: {type: String, required: true},
-    selectedFile: {type: Buffer, required: true}
+    selectedFile: {type: String, required: true}
 }, {
     timestamps: true
 });
