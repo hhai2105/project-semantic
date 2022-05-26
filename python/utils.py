@@ -111,3 +111,23 @@ def createEmbed():
         json.dump(dict,file)
     except:
         pass
+
+def convertFile(filename):
+    pageArr = pdf_to_txt_list(filename)
+    bufferFile = open(filename.split(".")[0], 'w')
+    for page in pageArr:
+        page = " ".join(page.split("\n"))
+        bufferFile.write(page)
+        bufferFile.write("\n")
+    return filename
+
+
+def vectorize(directory):
+    embedder = SentenceTransformer('all-MiniLM-L6-v2')
+
+    pages = pdf_to_txt_list(directory)
+    print(pages)
+    embedded = embedder.encode(pages, convert_to_tensor=True)
+    print(json.dump(embedded))
+
+vectorize("../dataset/CS514/lecture01.pdf")

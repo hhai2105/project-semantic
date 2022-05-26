@@ -30,9 +30,16 @@ export const createPdf = async (req,res) => {
     const {name, base64} = req.body;
     const userId = req.userId;
     const newPdf = new Pdf({ name, userId , selectedFile: base64});
+
+	
+
     try {
         await newPdf.save();
+		// Upload vetorized
+
+
         res.status(201).json(newPdf);
+
     }catch(err){
         res.status(400).json("error: " + err);
     }
