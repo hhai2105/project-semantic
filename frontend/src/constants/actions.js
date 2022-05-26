@@ -1,9 +1,9 @@
-export const CREATE_WORKSPACE = "CREATE_WORKSPACE";
-export const UPDATE_WORKSPACE = "UPDATE_WORKSPACE";
-export const DELETE_WORKSPACE = "DELETE_WORKSPACE";
-export const FETCH_ALL_WORKSPACE = "FETCH_ALL_WORKSPACE";
-export const FETCH_WORKSPACE = "FETCH_WORKSPACE";
-export const OPEN_WORKSPACE = "OPEN_WORKSPACE";
+export const CREATE_PDF = "CREATE_PDF";
+export const UPDATE_PDF = "UPDATE_PDF";
+export const DELETE_PDF = "DELETE_PDF";
+export const FETCH_ALL_PDF = "FETCH_ALL_PDF";
+export const FETCH_PDF = "FETCH_PDF";
+export const OPEN_PDF = "OPEN_PDF";
 
 export const CREATE_BIN = "CREATE_BIN";
 export const UPDATE_BIN = "UPDATE_BIN";

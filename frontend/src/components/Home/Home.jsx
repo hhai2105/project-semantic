@@ -1,9 +1,11 @@
-import {Typography} from '@mui/material'
-import Bins from './../Bins/Bins.jsx'
+import React from "react";
+import PdfForm from "../PdfsForm/Form.jsx";
 
 function Home(){
 	return(
-            <Bins/>
-	)
+            <>
+                <PdfForm/>
+            </>
+	);
 }
-export default Home
+export default Home;

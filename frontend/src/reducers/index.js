@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
 import auth from "./auth.js";
-import workspaces from "./workspaces.js";
+import pdfs from "./pdfs.js";
 
-export default combineReducers({auth, workspaces });
+export default combineReducers({auth, pdfs });
