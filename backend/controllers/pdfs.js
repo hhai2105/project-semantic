@@ -1,7 +1,13 @@
 import express from 'express';
 import Pdf from '../models/pdf.js';
+import Embed from '../models/embed.js';
 import Bin from '../models/pdf.js';
 const router = express.Router();
+import {spawn} from 'node:child_process';
+import {Base64} from 'js-base64';
+import {writeFile} from 'node:fs';
+import fs from 'fs';
+
 
 export const getPdfs = async (req,res) =>{
     try{
@@ -18,7 +24,6 @@ export const getPdfData = async (req,res) =>{
 	if(!req.userId) return res.json({message: "unauthenticated"});
         console.log(req.body.id)
 	const pdf = await Pdf.findById(req.body.id).select('selectedFile');
-        console.log(pdf)
 	res.status(200).json(pdf);
     }catch(err){
 	res.status(400).json("error: " + err);
@@ -30,17 +35,37 @@ export const createPdf = async (req,res) => {
     const {name, base64} = req.body;
     const userId = req.userId;
     const newPdf = new Pdf({ name, userId , selectedFile: base64});
-
-	
-
     try {
-        await newPdf.save();
-		// Upload vetorized
-
-
-        res.status(201).json(newPdf);
+        console.log("trying to embed")
+        let base64Pdf = base64.split(';base64,').pop();
+        // console.log(base64)
+        writeFile(name, base64Pdf, 'base64', error => {
+            if(error){
+                console.log(error)
+                throw error;
+            }
+            else
+                console.log("success");
+        })
+        const python = await spawn('python', ['../python/embed.py', name]);
+        await new Promise( (resolve) => {
+            python.on('close', resolve);
+        });
+        let contents
+        await fs.readFile(name.split(".")[0] + ".pt", "base64", async (err, buf)=>{
+            if(err){
+                console.log(err)
+            }else{
+                const newEmbed = new Embed({name: name.split(".")[0], userId, selectedFile: buf})
+                await newEmbed.save();
+                await newPdf.save();
+            }
+        }) ;
+        res.status(201).json({newPdf, newEmbed});
+        // Upload vetorized
 
     }catch(err){
+        console.log(err)
         res.status(400).json("error: " + err);
     }
 };

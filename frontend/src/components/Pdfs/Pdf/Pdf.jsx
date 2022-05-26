@@ -9,6 +9,7 @@ import { deletePdf, openPdf } from '../../../actions/Pdfs.js';
 import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
 import DownloadIcon from '@mui/icons-material/Download';
 import { getPdfData } from '../../../actions/Pdfs.js'
+import PropTypes from 'prop-types';
 
 
 const Pdf = ({pdf}) => {
@@ -44,5 +45,8 @@ const Pdf = ({pdf}) => {
             </Card>
         </>
     );
+};
+Pdf.propTypes = {
+    pdf: PropTypes.Object
 };
 export default Pdf;

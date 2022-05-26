@@ -18,7 +18,6 @@ const Form = () => {
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log(selectedFile)
         dispatch(createPdf(selectedFile));
         hideForm();
     }

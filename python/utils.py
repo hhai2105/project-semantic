@@ -8,6 +8,7 @@ from io import StringIO
 import json
 import torch
 import fitz
+from base64 import b64decode
 import os
 
 def pdf_to_txt_list(file_path):
@@ -122,12 +123,8 @@ def convertFile(filename):
     return filename
 
 
-def vectorize(directory):
+def vectorize(filename):
+    pages = pdf_to_txt_list(filename)
     embedder = SentenceTransformer('all-MiniLM-L6-v2')
-
-    pages = pdf_to_txt_list(directory)
-    print(pages)
     embedded = embedder.encode(pages, convert_to_tensor=True)
-    print(json.dump(embedded))
-
-vectorize("../dataset/CS514/lecture01.pdf")
+    print(torch.save(embedded, filename.split(".")[0]+".pt"))
