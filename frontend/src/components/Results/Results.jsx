@@ -1,5 +1,4 @@
 import React, {useEffect}  from 'react';
-import Pdf from './Pdf/Pdf';
 import {getPdfs} from '../../actions/Pdfs.js'
 import {useSelector, useDispatch} from 'react-redux'
 import {useLocation} from 'react-router'
@@ -14,13 +13,8 @@ const Pdfs = () => {
     },[location, dispatch]);
     const pdfs = useSelector((state) => state.pdfs.pdfs);
     return (
-	pdfs.length === 0 ? <CircularProgress /> : (
-	    <>
-		{pdfs.map((pdf) => (
-		    <Pdf key={pdf._id} pdf={pdf}/>
-		))}
-	    </>
-	)
+        <>
+        </>
     )
 };
 export default Pdfs;

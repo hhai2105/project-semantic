@@ -1,10 +1,12 @@
 import React from "react";
-import Pdfs from "../Pdfs/Pdfs.jsx";
+import Searchbar from "../Searchbar/Searchbar.jsx";
+import Results from "../Results/Results.jsx";
 
 export default function Home(){
     return(
         <>
-            <Pdfs/>
+            <Searchbar/>
+            <Results/>
         </>
     );
 };

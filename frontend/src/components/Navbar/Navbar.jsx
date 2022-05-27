@@ -4,8 +4,8 @@ import {useNavigate, useLocation} from "react-router";
 import {useDispatch} from "react-redux";
 import { Menu, MenuItem, Typography, Toolbar, AppBar, Box, Button, Avatar, IconButton } from "@mui/material";
 import {Link } from "react-router-dom";
-
 import PdfForm from "../PdfsForm/Form.jsx";
+import SearchIcon from '@mui/icons-material/Search';
 import Searchbar from "../Searchbar/Searchbar.jsx";
 
 function Navbar(){
@@ -63,11 +63,11 @@ function Navbar(){
             <AppBar position="fixed" variant="dense">
                 <Toolbar>
                     <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
-                        <MenuItem key="UKG" onClick={() => {navigate("/");}}>
-                            <Typography variant="h6" textAlign="center">Workspace</Typography>
+                        <MenuItem key="pdf" onClick={() => {navigate("/pdf");}}>
+                            <Typography variant="h6" textAlign="center">Pdfs</Typography>
                         </MenuItem>
                         <MenuItem key="UKG" onClick={() => {navigate("/");}}>
-                            <Typography variant="h6" textAlign="center">Workspace</Typography>
+                            <Typography variant="h6" textAlign="center">Search Engine</Typography>
                         </MenuItem>
                     </Box>
                     {
@@ -77,7 +77,6 @@ function Navbar(){
                             </>
                         ) : (
                             <>
-                                <Searchbar/>
                                 <PdfForm/>
                                 <IconButton onClick={handleShowUserMenu}>
                                     {

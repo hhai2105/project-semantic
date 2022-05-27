@@ -2,22 +2,32 @@ from utils import *
 from sentence_transformers import SentenceTransformer, util
 import torch
 import sys
+import numpy as np
 
 corpus_embeddings = []
 dict = {}
 f = open(sys.argv[1], "r")
-query = sys.argv[2]
+query = sys.argv[3]
+directory = sys.argv[2]
+first = True
+for embedName in f.read().splitlines():
+    if first:
+        fileEmbed = torch.load(directory + embedName)
+        corpus_embeddings = fileEmbed
+        first = False
+    else:
+        fileEmbed = torch.load(directory + embedName)
+        corpus_embeddings= torch.cat((corpus_embeddings, fileEmbed), 0 )
+    print(embedName)
+    for i in range(len(fileEmbed)):
+        dict[str(len(corpus_embeddings) - len(fileEmbed) + i)] = (embedName, i)
 
-for embedName in f.readlines():
-    embededFile = torch.load(embedName)
-    for index in range(len(embededFile)):
-        corpus_embeddings.append(embededFile[index])
-        dict[len(corpus_embeddings) - 1] = (embedName, index)
-
-
+print(corpus_embeddings)
+print(dict)
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
 query_embedding = embedder.encode(query, convert_to_tensor=True)
 
+print(corpus_embeddings)
 
 cos_scores = util.cos_sim(query_embedding, corpus_embeddings)[0]
 top_k = min(5, len(corpus_embeddings))

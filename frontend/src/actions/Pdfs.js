@@ -6,7 +6,6 @@ import { triggerBase64Download } from 'common-base64-downloader-react';
 export const getPdfs = () => async (dispatch) => {
     try {
         const { data } = await api.getPdfs();
-        console.log(data)
         dispatch({ type: FETCH_ALL_PDF, payload: data });
     } catch (error) {
         console.log(error);
@@ -16,7 +15,6 @@ export const getPdfs = () => async (dispatch) => {
 export const getPdfData = (pdf) => async (dispatch) => {
     try {
         const { data } = await api.getPdfData({id: pdf._id});
-        console.log(data.selectedFile)
         triggerBase64Download(data.selectedFile, pdf.name)
     } catch (error) {
         console.log(error);
