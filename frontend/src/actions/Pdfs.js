@@ -23,8 +23,13 @@ export const getPdfData = (pdf) => async (dispatch) => {
 
 export const createPdf = (formData) => async (dispatch) => {
     try {
-        const { data } = await api.createPdf(formData);
-        dispatch({ type: CREATE_PDF, payload: data});
+        console.log(formData)
+        let arr = []
+        for(let i = 0; i < formData.length; i++){
+            const { data } = await api.createPdf(formData[i]);
+            console.log("finished with " + formData[i].name)
+        }
+        dispatch({ type: CREATE_PDF, payload: arr});
     } catch (error) {
         console.log(error);
     }

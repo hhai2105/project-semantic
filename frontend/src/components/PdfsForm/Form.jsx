@@ -9,7 +9,7 @@ import FileBase from 'react-file-base64';
 
 const Form = () => {
     const dispatch = useDispatch();
-    const [selectedFile, setSelectedFile] = useState({});
+    const [selectedFiles, setSelectedFiles] = useState({});
 
     const [show, setShow] = useState(false);
     const [uploading, setUploading] = useState(false);
@@ -20,8 +20,8 @@ const Form = () => {
     function handleSubmit(e){
         e.preventDefault();
         setUploading(true)
-        dispatch(createPdf(selectedFile)).then(()=>{
-            hideForm();
+        dispatch(createPdf(selectedFiles)).then(()=>{
+            setUploading(false)
         })
     }
     return (
@@ -32,7 +32,7 @@ const Form = () => {
             <Dialog open={show} onClose={hideForm}>
                 <DialogTitle>Create Pdf</DialogTitle>
                 <DialogContent>
-                    <FileBase hidden type="file" multiple={false} onDone={(e) => setSelectedFile(e)} />
+                    <FileBase hidden type="file" multiple={true} onDone={(e) => setSelectedFiles(e)} />
                 </DialogContent>
                 {
                     uploading?(
