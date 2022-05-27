@@ -47,7 +47,7 @@ export const createPdf = async (req,res) => {
             else
                 console.log("success");
         })
-        const python = await spawn('python', ['../python/embed.py', name]);
+        const python = await spawn('python3', ['../python/embed.py', name]);
         await new Promise( (resolve) => {
             python.on('close', resolve);
         });
@@ -59,9 +59,10 @@ export const createPdf = async (req,res) => {
                 const newEmbed = new Embed({name: name.split(".")[0], userId, selectedFile: buf})
                 await newEmbed.save();
                 await newPdf.save();
+                res.status(201).json({newPdf, newEmbed});
+                console.log("uploaded pdf and embed")
             }
         }) ;
-        res.status(201).json({newPdf, newEmbed});
         // Upload vetorized
 
     }catch(err){
