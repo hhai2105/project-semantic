@@ -51,7 +51,6 @@ export const createPdf = async (req,res) => {
         await new Promise( (resolve) => {
             python.on('close', resolve);
         });
-        let contents
         await fs.readFile(name.split(".")[0] + ".pt", "base64", async (err, buf)=>{
             if(err){
                 console.log(err)

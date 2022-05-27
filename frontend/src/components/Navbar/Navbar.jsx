@@ -6,6 +6,7 @@ import { Menu, MenuItem, Typography, Toolbar, AppBar, Box, Button, Avatar, IconB
 import {Link } from "react-router-dom";
 
 import PdfForm from "../PdfsForm/Form.jsx";
+import Searchbar from "../Searchbar/Searchbar.jsx";
 
 function Navbar(){
     const dispatch = useDispatch();
@@ -73,6 +74,7 @@ function Navbar(){
                             </>
                         ) : (
                             <>
+                                <Searchbar/>
                                 <PdfForm/>
                                 <IconButton onClick={handleShowUserMenu}>
                                     {
