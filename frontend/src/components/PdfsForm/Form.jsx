@@ -12,14 +12,17 @@ const Form = () => {
     const [selectedFile, setSelectedFile] = useState({});
 
     const [show, setShow] = useState(false);
+    const [uploading, setUploading] = useState(false);
     const showForm = () => {setShow(true);};
     const hideForm = () => {setShow(false);};
 
 
     function handleSubmit(e){
         e.preventDefault();
-        dispatch(createPdf(selectedFile));
-        hideForm();
+        setUploading(true)
+        dispatch(createPdf(selectedFile)).then(()=>{
+            hideForm();
+        })
     }
     return (
         <>
@@ -31,6 +34,13 @@ const Form = () => {
                 <DialogContent>
                     <FileBase hidden type="file" multiple={false} onDone={(e) => setSelectedFile(e)} />
                 </DialogContent>
+                {
+                    uploading?(
+                        <Typography variant="h6">Uploading...</Typography>
+                    ):(
+                        <></>
+                    )
+                }
                 <DialogActions>
                     <Button onClick={hideForm}>Cancel</Button>
                     <Button onClick={handleSubmit}>Create</Button>

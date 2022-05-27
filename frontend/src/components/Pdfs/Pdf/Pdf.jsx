@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Card, CardActions, IconButton, CardContent, CardMedia, Button, Typography} from '@mui/material';
+import { Paper, IconButton, CardContent, CardMedia, Button, Typography, Grid} from '@mui/material';
 import {Clear} from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Menu from '@mui/material/Menu';
@@ -10,6 +10,7 @@ import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same ti
 import DownloadIcon from '@mui/icons-material/Download';
 import { getPdfData } from '../../../actions/Pdfs.js'
 import PropTypes from 'prop-types';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 
 const Pdf = ({pdf}) => {
@@ -27,12 +28,16 @@ const Pdf = ({pdf}) => {
     }
     return (
         <>
-            <Card>
-                <Typography variant="h7" textAlign="center">{pdf.name}</Typography>
-                <IconButton edge="end" aria-label="delete" onClick={handleDelete}>
-                <DeleteIcon  sx={{ fontSize: 20 }}/>
-                </IconButton>
-                <IconButton edge="end" aria-label="Download" onClick={handleDownload}>
+            <Paper elevation={3}>
+                <Grid container direction="row" sx={{m: 3}}>
+                    <IconButton disabled>
+                        <PictureAsPdfIcon/>
+                    </IconButton>
+                    <Typography variant="h6" textAlign="left">{pdf.name}</Typography>
+                            <IconButton edge="end" aria-label="delete" onClick={handleDelete}>
+                                <DeleteIcon  sx={{ fontSize: 20 }}/>
+                    </IconButton>
+                    <IconButton edge="end" aria-label="Download" onClick={handleDownload}>
                     <DownloadIcon  sx={{ fontSize: 20 }}/>
                 </IconButton>
                 {
@@ -42,7 +47,8 @@ const Pdf = ({pdf}) => {
                         <></>
                     )
                 }
-            </Card>
+                </Grid>
+            </Paper>
         </>
     );
 };

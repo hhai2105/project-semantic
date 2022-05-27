@@ -65,6 +65,9 @@ function Navbar(){
                         <MenuItem key="UKG" onClick={() => {navigate("/");}}>
                             <Typography variant="h6" textAlign="center">Workspace</Typography>
                         </MenuItem>
+                        <MenuItem key="UKG" onClick={() => {navigate("/");}}>
+                            <Typography variant="h6" textAlign="center">Workspace</Typography>
+                        </MenuItem>
                     </Box>
                     {
                         user == null? (
