@@ -11,20 +11,26 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { getPdfData } from '../../../actions/Pdfs.js'
 import PropTypes from 'prop-types';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { useNavigate } from 'react-router-dom';
 
 
 const Pdf = ({pdf}) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [downloading, setDownloading] = useState(false);
+    const [deleting, setDeleting] = useState(false);
     function handleDelete(){
-        dispatch(deletePdf(pdf._id));
+        setDeleting(true)
+        dispatch(deletePdf(pdf._id)).then(() => {
+            setDeleting(false);
+            navigate("/pdf");
+        })
     }
     function handleDownload(){
         setDownloading(true);
         dispatch(getPdfData(pdf)).then(
             () => setDownloading(false)
         );
-
     }
     return (
         <>

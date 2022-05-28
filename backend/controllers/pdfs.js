@@ -89,25 +89,10 @@ export const createPdf = async (req,res) => {
 export const deletePdf = async (req, res) =>{
     try{
 	if(!req.userId) return res.json({message: "unauthenticated"});
-	const userId = req.userId;
-	const pdf = await Pdf.findById(req.params.id);
-	if(pdf.users.filter(user => user === req.userId).length !== 0){
-            pdf.users = pdf.users.filter(user => user !== req.userId)
-            if(pdf.users.length === 0){
-                let message;
-	        const bins = await Bin.find({pdfId: pdf._id});
-                for(let i = 0; i < bins.length; i++){
-                    message = await Bin.findByIdAndDelete(bins[i]._id);
-                }
-	        message = await Pdf.findByIdAndDelete(req.params.id);
-            }else{
-	        const message =await pdf.save();
-	        res.json('pdf deleted');
-            }
-	    res.status(200).json(req.params.id)
-	}else{
-	    res.status(400).json({message: "not the user"});
-	}
+        await Pdf.findByIdAndDelete(req.params.id);
+        await Embed.deleteMany({pdfId: req.params.id});
+        await PdfImg.deleteMany({pdfId: req.params.id});
+        res.status(200).json("pdf deleted")
     }catch(err){
 	res.status(400).json("error: " + err);
     }

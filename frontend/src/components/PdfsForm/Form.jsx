@@ -1,14 +1,16 @@
 import React from "react";
 import { IconButton, Typography, TextField, Button, Dialog, DialogContent, DialogTitle, DialogActions} from "@mui/material";
-import { useState } from "react";
+import { useState, useLocation } from "react";
 import { useDispatch } from "react-redux";
 import { createPdf } from "../../actions/Pdfs.js";
 import AddIcon from "@mui/icons-material/Add";
 import axios from 'axios';
 import FileBase from 'react-file-base64';
+import {useNavigate} from "react-router-dom";
 
 const Form = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [selectedFiles, setSelectedFiles] = useState({});
 
     const [show, setShow] = useState(false);
@@ -21,7 +23,9 @@ const Form = () => {
         e.preventDefault();
         setUploading(true)
         dispatch(createPdf(selectedFiles)).then(()=>{
-            setUploading(false)
+            setUploading(false);
+            hideForm();
+            navigate("/pdf");
         })
     }
     return (
