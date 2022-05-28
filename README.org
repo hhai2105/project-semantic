@@ -12,3 +12,8 @@ A knowledge finder using semantic search based on vectorization and MATHEMATICS
 ** TODO Connect javascript to python script
 ** TODO Implement mongoose database
 ** TODO merge with frontend
+
+
+
+
+![Demo](https://media2.giphy.com/media/PAK6hr98xEzwdDwEuh/giphy.gif)
