@@ -4,17 +4,21 @@ import {useSelector, useDispatch} from 'react-redux'
 import {useLocation} from 'react-router'
 import { Menu, Grid, CircularProgress, Box, Button } from '@mui/material';
 
-const Pdfs = () => {
+const Results = () => {
     const dispatch = useDispatch();
     const location = useLocation();
-
-    useEffect(() => {
-	dispatch(getPdfs());
-    },[location, dispatch]);
-    const pdfs = useSelector((state) => state.pdfs.pdfs);
-    return (
-        <>
-        </>
+    const results = useSelector(state => state.search.results)
+    console.log(results)
+    return(
+        results.length === 0 ? (<></>) : (
+            <>
+                {
+                    results.map(result => (
+                        <h1 key={result}>{result}</h1>
+                    ))
+                }
+            </>
+        )
     )
 };
-export default Pdfs;
+export default Results;

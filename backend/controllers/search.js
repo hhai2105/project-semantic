@@ -40,16 +40,14 @@ export const search = async (req,res) =>{
 
         const query = req.body.query
         const python = await spawn('python3', ['../python/search.py', 'corpusnames.txt', directory, query]);
-        python.stdout.on('data', (data) => {
-            console.log(`stdout: ${data}`);
-        });
-
-        python.stderr.on('data', (data) => {
-            console.error(`stderr: ${data}`);
-        });
+        var result = ''
+        python.stdout.on('data', function(data) {
+            result += data.toString()
+        })
         await new Promise( (resolve) => {
             python.on('close', resolve);
         });
+        res.status(200).json(result)
     } catch(err) {
         console.log(err)
 	res.status(400).json("error: " + err);

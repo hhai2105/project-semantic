@@ -77,7 +77,6 @@ def convert():
 
     for filename in os.listdir(directory):
         if filename.endswith(".pdf"):
-            print(f"{filename}\n")
             pageArr = pdf_to_txt_list(directory + filename)
             openfile = open(converted + filename.split(".")[0], 'w')
             for page in pageArr:
@@ -90,7 +89,6 @@ def createCorpus():
     corpus = []
     dict = {}
     for filename in os.listdir(directory):
-        print(filename)
         f = open(directory + filename, 'r')
         pages = f.readlines()
         for index in range(len(pages)):
