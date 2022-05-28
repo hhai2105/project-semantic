@@ -20,7 +20,10 @@
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^6.2.0",
         "nodemon": "^2.0.16",
-        "path": "^0.12.7"
+        "path": "^0.12.7",
+        "pdf2pic": "^2.1.4",
+        "pdfjs": "^2.4.7",
+        "pdfjs-dist": "^2.14.305"
     },
     "devDependencies": {
         "eslint": "^8.15.0",

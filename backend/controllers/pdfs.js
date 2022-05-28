@@ -1,12 +1,15 @@
 import express from 'express';
 import Pdf from '../models/pdf.js';
 import Embed from '../models/embed.js';
+import PdfImg from '../models/pdfImg.js';
 import Bin from '../models/pdf.js';
 const router = express.Router();
 import {spawn} from 'node:child_process';
 import {Base64} from 'js-base64';
 import {writeFile} from 'node:fs';
 import fs from 'fs';
+import pdfjs from 'pdfjs-dist';
+import { fromPath } from "pdf2pic";
 
 
 export const getPdfs = async (req,res) =>{
@@ -45,8 +48,37 @@ export const createPdf = async (req,res) => {
                 throw error;
             }
             else
+            {
                 console.log("success");
+                var loadingTask = pdfjs.getDocument(name);
+                loadingTask.promise.then(async function(pdf) {
+                    console.log(pdf.numPages);
+                    for (let i = 0; i < pdf.numPages; i++) {
+                        pdf.getPage(i + 1).then(async function(page) {
+                            var viewport = page.getViewport({ scale: 1});
+                            console.log(i);
+                            const options = {
+                                density: 100,
+                                saveFilename: name.substring(0, -4),
+                                savePath: "./images",
+                                format: "png",
+                                width: viewport.width,
+                                height: viewport.height
+                            };
+                            // const pageBase64 = await fromPath(name, options).bulk(i + 1, true);
+                            console.log(pageBase64);
+                            const newPdfImg = new PdfImg({pageNum: i, pdfId: newPdf._id, selectedFile: pageBase64})
+                            await newPdfImg.save();
+                            
+                        });
+                    }
+                });
+            }
         })
+
+        
+
+
         const python = await spawn('python3', ['../python/embed.py', name]);
         await new Promise( (resolve) => {
             python.on('close', resolve);
@@ -63,6 +95,9 @@ export const createPdf = async (req,res) => {
             }
         }) ;
         // Upload vetorized
+
+
+
 
     }catch(err){
         console.log(err)
