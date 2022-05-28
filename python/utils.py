@@ -90,6 +90,7 @@ def createCorpus():
     corpus = []
     dict = {}
     for filename in os.listdir(directory):
+        print(filename)
         f = open(directory + filename, 'r')
         pages = f.readlines()
         for index in range(len(pages)):
@@ -128,3 +129,5 @@ def vectorize(filename):
     embedder = SentenceTransformer('all-MiniLM-L6-v2')
     embedded = embedder.encode(pages, convert_to_tensor=True)
     print(torch.save(embedded, filename.split(".")[0]+".pt"))
+
+createCorpus()

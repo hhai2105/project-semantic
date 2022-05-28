@@ -4,7 +4,7 @@ from utils import *
 
 
 # Query sentences:
-queries = ['pca', 'eigen', 'lambda']
+queries = ['pca', 'eigen', 'test']
 
 embedded = False 
 while not embedded:
@@ -15,6 +15,8 @@ while not embedded:
     except:
         createEmbed()
 print("finished")
+
+print(corpus_embeddings)
 
 embedder = SentenceTransformer('all-MiniLM-L6-v2')
 # Find the closest 5 sentences of the corpus for each query sentence based on cosine similarity

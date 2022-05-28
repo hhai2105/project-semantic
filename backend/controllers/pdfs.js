@@ -55,9 +55,9 @@ export const createPdf = async (req,res) => {
             if(err){
                 console.log(err)
             }else{
-                const newEmbed = new Embed({name: name.split(".")[0], userId, selectedFile: buf})
-                await newEmbed.save();
                 await newPdf.save();
+                const newEmbed = new Embed({name: name.split(".")[0], pdfId: newPdf._id, selectedFile: buf})
+                await newEmbed.save();
                 res.status(201).json({newPdf, newEmbed});
                 console.log("uploaded pdf and embed")
             }
@@ -92,26 +92,6 @@ export const deletePdf = async (req, res) =>{
 	}else{
 	    res.status(400).json({message: "not the user"});
 	}
-    }catch(err){
-	res.status(400).json("error: " + err);
-    }
-};
-
-export const updatePdf = async (req, res) =>{
-    try{
-
-	if(!req.userId) return res.json({message: "unauthenticated"});
-	const name = req.body.name;
-	const userId = req.userId;
-	pdf = await Pdf.findById(req.params.id);
-	if(pdf.userId === userId){
-	    const pdf = await Pdf.findById(req.params.id);
-	}else{
-	    res.status(400).json({message: "not the user"});
-	}
-	pdf.name = req.body.name;
-	message =await pdf.save();
-	res.json('pdf updated');
     }catch(err){
 	res.status(400).json("error: " + err);
     }

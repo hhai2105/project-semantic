@@ -38,7 +38,7 @@ export const search = async (req,res) =>{
         nameArray.forEach(function(v) { file.write(v + '\n'); });
         file.end();
 
-        const query = req.query
+        const query = req.body.query
         const python = await spawn('python3', ['../python/search.py', 'corpusnames.txt', directory, query]);
         python.stdout.on('data', (data) => {
             console.log(`stdout: ${data}`);
