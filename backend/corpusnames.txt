@@ -17,9 +17,9 @@ lecture09.pt
 lecture08.pt
 lecture07.pt
 lecture06.pt
-lecture04.pt
 lecture03.pt
 lecture02.pt
+lecture04.pt
 lecture05.pt
 lecture01.pt
 lecture22.pt

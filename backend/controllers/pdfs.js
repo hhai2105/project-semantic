@@ -10,17 +10,23 @@ import {writeFile} from 'node:fs';
 import fs from 'fs';
 import pdfjs from 'pdfjs-dist';
 import { fromPath } from "pdf2pic";
+const options = {
+    density: 100,
+    saveFilename: "untitled",
+    savePath: "./images",
+    format: "png",
+}
 
 
 export const getPdfs = async (req,res) =>{
-    try{
-	if(!req.userId) return res.json({message: "unauthenticated"});
-	const pdf = await Pdf.find({userId: req.userId}).select('name');
-	res.status(200).json(pdf);
-    }catch(err){
-	res.status(400).json("error: " + err);
-    }
-};
+          try{
+	      if(!req.userId) return res.json({message: "unauthenticated"});
+	      const pdf = await Pdf.find({userId: req.userId}).select('name');
+	      res.status(200).json(pdf);
+          }catch(err){
+	      res.status(400).json("error: " + err);
+          }
+      };
 
 export const getPdfData = async (req,res) =>{
     try{
@@ -42,7 +48,7 @@ export const createPdf = async (req,res) => {
         console.log("trying to embed")
         let base64Pdf = base64.split(';base64,').pop();
         // console.log(base64)
-        writeFile(name, base64Pdf, 'base64', error => {
+        writeFile(name, base64Pdf, 'base64', async error => {
             if(error){
                 console.log(error)
                 throw error;
@@ -50,37 +56,16 @@ export const createPdf = async (req,res) => {
             else
             {
                 console.log("success");
-                var loadingTask = pdfjs.getDocument(name);
-                loadingTask.promise.then(async function(pdf) {
-                    console.log(pdf.numPages);
-                    for (let i = 0; i < pdf.numPages; i++) {
-                        pdf.getPage(i + 1).then(async function(page) {
-                            var viewport = page.getViewport({ scale: 1});
-                            console.log(i);
-                            const options = {
-                                density: 100,
-                                saveFilename: name.substring(0, -4),
-                                savePath: "./images",
-                                format: "png",
-                                width: viewport.width,
-                                height: viewport.height
-                            };
-                            // const pageBase64 = await fromPath(name, options).bulk(i + 1, true);
-                            console.log(pageBase64);
-                            const newPdfImg = new PdfImg({pageNum: i, pdfId: newPdf._id, selectedFile: pageBase64})
-                            await newPdfImg.save();
-                            
-                        });
-                    }
-                });
+                console.log("before pdf");
+                const pageBase64 = await fromPath(name, options).bulk(-1, true);
+                for(let i = 0; i < pageBase64.length; i++){
+                    const newPdfImg = new PdfImg({pageNum: i, pdfId: newPdf._id, selectedFile: pageBase64[i].base64});
+                    console.log("after pdf");
+                    await newPdfImg.save();
+                }
             }
         })
-
-        
-
-
-        const python = await spawn('python3', ['../python/embed.py', name]);
-        await new Promise( (resolve) => {
+        const python = await spawn('python3', ['../python/embed.py', name]); await new Promise( (resolve) => {
             python.on('close', resolve);
         });
         await fs.readFile(name.split(".")[0] + ".pt", "base64", async (err, buf)=>{
@@ -90,14 +75,10 @@ export const createPdf = async (req,res) => {
                 await newPdf.save();
                 const newEmbed = new Embed({name: name.split(".")[0], pdfId: newPdf._id, selectedFile: buf})
                 await newEmbed.save();
-                res.status(201).json({newPdf, newEmbed});
-                console.log("uploaded pdf and embed")
+                res.status(201).json("successfully embedded");
             }
         }) ;
         // Upload vetorized
-
-
-
 
     }catch(err){
         console.log(err)
