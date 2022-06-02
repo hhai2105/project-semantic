@@ -17,3 +17,4 @@ A knowledge finder using semantic search based on vectorization and MATHEMATICS
 
 
 [[Demo][https://media.giphy.com/media/PAK6hr98xEzwdDwEuh/giphy.gif]]
+[[Demo2][https://media.giphy.com/media/UDo7iTanhbrPY85jiK/giphy.gif]]
