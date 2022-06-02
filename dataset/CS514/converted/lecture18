@@ -1,29 +1,0 @@
-compsci 514: algorithms for data science  Andrew McGregor  Lecture 18  0  
-summary  Last Class: • SVD • Low-rank matrix completion (predicting missing measurements  using low-rank structure) and entity embeddings.  Spectral Graph Theory & Spectral Clustering. • Low-rank approximation on graph adjacency matrix for  non-linear dimensionality reduction.  • Eigendecomposition to partition graphs into clusters.  1  
-non-linear dimensionality reduction  Is this set of points compressible? Does it lie close to a low-dimensional subspace? (A 1-dimensional subspace of Rd .)  2  
-non-linear dimensionality reduction  Is this set of points compressible? Does it lie close to a low-dimensional subspace? (A 1-dimensional subspace of Rd .)  2  
-non-linear dimensionality reduction  Is this set of points compressible? Does it lie close to a low-dimensional subspace? (A 1-dimensional subspace of Rd .)  A common way of automatically identifying this non-linear structure is to connect data points in a graph. E.g., a k-nearest neighbor graph. • Connect items to similar items, possibly with higher weight edges when  they are more similar.  2  
-linear algebraic representation of a graph  Once we have connected n data points x1, . . . , xn into a graph, we can represent that graph by its (weighted) adjacency matrix.  A ∈ Rn×n with Ai,j = edge weight between nodes i and j  3  
-linear algebraic representation of a graph  Once we have connected n data points x1, . . . , xn into a graph, we can represent that graph by its (weighted) adjacency matrix.  A ∈ Rn×n with Ai,j = edge weight between nodes i and j  3  
-adjacency matrix eigenvectors  How do we compute an optimal low-rank approximation of A? • Project onto the top k eigenvectors of AT A = A2. These are  just the eigenvectors of A.  4  
-adjacency matrix eigenvectors  How do we compute an optimal low-rank approximation of A? • Project onto the top k eigenvectors of AT A = A2. These are  just the eigenvectors of A.  • Similar vertices (close with regards to graph proximity) should  have similar embeddings.  4  
-spectral embedding  5  
-spectral clustering  A very common task is to partition or cluster vertices in a graph based on similarity/connectivity.  6  
-spectral clustering  A very common task is to partition or cluster vertices in a graph based on similarity/connectivity.  Community detection in naturally occurring networks.  6  
-spectral clustering  A very common task is to partition or cluster vertices in a graph based on similarity/connectivity.  Community detection in naturally occurring networks.  6  
-spectral clustering  A very common task is to partition or cluster vertices in a graph based on similarity/connectivity.  Linearly separable data.  6  
-spectral clustering  A very common task is to partition or cluster vertices in a graph based on similarity/connectivity.  Non-linearly separable data k-nearest neighbor graph.  6  
-spectral clustering  A very common task is to partition or cluster vertices in a graph based on similarity/connectivity.  Non-linearly separable data k-nearest neighbor graph.  6  
-spectral clustering  A very common task is to partition or cluster vertices in a graph based on similarity/connectivity.  Non-linearly separable data k-nearest neighbor graph.  6  
-spectral clustering  A very common task is to partition or cluster vertices in a graph based on similarity/connectivity.  Non-linearly separable data k-nearest neighbor graph.  Can ﬁnd this cut using eigendecomposition!  6  
-cut minimization  Simple Idea: Partition clusters along minimum cut in graph.  7  
-cut minimization  Simple Idea: Partition clusters along minimum cut in graph.  Small cuts are often not informative.  7  
-cut minimization  Simple Idea: Partition clusters along minimum cut in graph.  Small cuts are often not informative.  Solution: Encourage cuts that separate large sections of the graph.  7  
-cut minimization  Simple Idea: Partition clusters along minimum cut in graph.  Small cuts are often not informative.  Solution: Encourage cuts that separate large sections of the graph. • Let (cid:126)v ∈ Rn be a cut indicator: (cid:126)v (i) = 1 if i ∈ S. (cid:126)v (i) = −1 if i ∈ T . Want (cid:126)v to have roughly equal numbers of 1s and −1s. I.e., (cid:126)v T(cid:126)1 ≈ 0.  7  
-the laplacian view  For a graph with adjacency matrix A and degree matrix D, L = D − A is the graph Laplacian.  8  
-the laplacian view  For a graph with adjacency matrix A and degree matrix D, L = D − A is the graph Laplacian.  (cid:88)  (i,j)∈E  For any vector (cid:126)v , its ‘smoothness’ over the graph is given by:  ((cid:126)v (i) − (cid:126)v (j))2 = (cid:126)v T L(cid:126)v .  8  
-rewriting laplacian  Lemma:  (cid:88)  (i,j)∈E  ((cid:126)v (i) − (cid:126)v (j))2 = (cid:126)v T L(cid:126)v  9  
-rewriting laplacian  (cid:88)  (i,j)∈E  ((cid:126)v (i) − (cid:126)v (j))2 = (cid:126)v T L(cid:126)v  Lemma:  Proof:  9  
-rewriting laplacian  Lemma:  (cid:88)  (i,j)∈E  ((cid:126)v (i) − (cid:126)v (j))2 = (cid:126)v T L(cid:126)v  Proof: • Let Le be the Laplacian for graph just containing edge e.  9  
-rewriting laplacian  Lemma:  (cid:88)  (i,j)∈E  ((cid:126)v (i) − (cid:126)v (j))2 = (cid:126)v T L(cid:126)v  Proof: • Let Le be the Laplacian for graph just containing edge e. • By linearity,  (cid:126)v T L(cid:126)v =  (cid:88)  e∈E  (cid:126)v T Le(cid:126)v  9  
-rewriting laplacian  Lemma:  (cid:88)  (i,j)∈E  ((cid:126)v (i) − (cid:126)v (j))2 = (cid:126)v T L(cid:126)v  Proof: • Let Le be the Laplacian for graph just containing edge e. • By linearity,  (cid:126)v T Le(cid:126)v • If e = (i, j), then (cid:126)v T Le(cid:126)v = (v (i) − v (j))2  (cid:126)v T L(cid:126)v =  (cid:88)  e∈E  9  
