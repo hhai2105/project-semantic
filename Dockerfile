@@ -12,8 +12,12 @@ RUN apt install -y graphicsmagick ghostscript
 COPY . .
 RUN pip install -r requirements.txt
 RUN cd backend && npm install
+RUN cd frontend && npm install && npm run build
+RUN cd frontend && npm install -g serve
 
-CMD ["node", "backend/index.js"]
+CMD ["./run.sh"]
+
 
 EXPOSE 5000
+EXPOSE 3000
 
