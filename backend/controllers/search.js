@@ -50,7 +50,7 @@ export const search = async (req,res) =>{
         idFile.end();
 
         const query = req.body.query;
-        const python = await spawn('python3', ['../python/search.py', req.userId + 'corpusnames.txt', directory, query, req.userId + 'id.txt']);
+        const python = await spawn('python3', ['./python/search.py', req.userId + 'corpusnames.txt', directory, query, req.userId + 'id.txt']);
         var results = '';
         python.stdout.on('data', function(data) {
             results += data.toString()

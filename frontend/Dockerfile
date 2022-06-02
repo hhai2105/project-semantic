@@ -10,14 +10,11 @@ RUN apt-get install -y nodejs
 RUN apt install -y graphicsmagick ghostscript
 
 COPY . .
-RUN pip install -r requirements.txt
-RUN cd backend && npm install
-RUN cd frontend && npm install && npm run build
-RUN cd frontend && npm install -g serve
+RUN npm install
+RUN npm install -g serve 
+RUN npm run build
 
-CMD ["./run.sh"]
-
+CMD ["serve", "-s", "build"]
 
 EXPOSE 5000
-EXPOSE 3000
 

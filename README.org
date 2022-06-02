@@ -2,19 +2,64 @@
 #+DESCRIPTION: A knowledge finder using semantic search based on vectorization and MATHEMATICS
 
 * Description
-A knowledge finder using semantic search based on vectorization and MATHEMATICS
-
-* Frontend
-** TODO Implement authentication
-** TODO Implement pdf upload
-** TODO Implement search bar
-* Backend
-** TODO Connect javascript to python script
-** TODO Implement mongoose database
-** TODO merge with frontend
-
-
-
+An application that stores and semantically search your pdfs for information, using SBERT.net's Python framework for state-of-the-art sentence, text and image embeddings.
 
 [[Demo][https://media.giphy.com/media/PAK6hr98xEzwdDwEuh/giphy.gif]]
 [[Demo2][https://media.giphy.com/media/UDo7iTanhbrPY85jiK/giphy.gif]]
+
+* Demo
+Both our frontend and backend is hosted on heroku using docker images.
+** Docker Images
+[[https://hub.docker.com/repository/docker/hhai2105/semantic-frontend/general][Frontend]]
+[[https://hub.docker.com/repository/docker/hhai2105/semantic-backend/general][Backend]]
+** Websites
+[[https://project-semantic.herokuapp.com/][Project-Semantic]]
+
+* Getting started
+** Pulling from github
+#+begin_src bash
+  git clone https://github.com/hhai2105/project-semantic
+#+end_src
+** Installing prerequisite
+*** frontend
+Frontend dependencies requires only Nodejs, npm. After installing both, we can install the rest by doing:
+
+#+begin_src bash
+cd frontend &
+npm install
+#+end_src
+
+Frontend also has our backend website embedded in it's /src/api files. Change those to match your backend.
+
+*** Backend
+Backend requires python3.8, Nodejs, npm, pytorch, cuda, Graphicsmagick, and ghostscript. Consult your operating system on how to install these dependencies.  After installation you need to run the below command.
+
+#+begin_src bash
+cd backend &
+npm install
+#+end_src
+
+We also need to add environmental variable ATLAS_URI for mongodb service, SECRET for password hashing, and PORT for port forwarding.
+
+** Running the website
+*** frontend
+To run frontend, you only need to run the below command.
+
+#+begin_src bash
+cd frontend &
+npm start 
+# you may also run npm run build to create a production build and run using serve -s build
+#+end_src
+
+*** Backend
+To run backend, you only need to run the below command
+
+#+begin_src bash
+cd backend &
+node index.js
+#+end_src
+
+
+
+
+

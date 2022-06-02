@@ -65,9 +65,10 @@ export const createPdf = async (req,res) => {
                 }
             }
         })
-        const python = await spawn('python3', ['../python/embed.py', name]); await new Promise( (resolve) => {
+        const python = await spawn('python3', ['./python/embed.py', name]); await new Promise( (resolve) => {
             python.on('close', resolve);
         });
+
         await fs.readFile(name.split(".")[0] + ".pt", "base64", async (err, buf)=>{
             if(err){
                 console.log(err)
