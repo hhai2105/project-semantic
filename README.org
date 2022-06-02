@@ -9,11 +9,12 @@ An application that stores and semantically search your pdfs for information, us
 
 * Demo
 Both our frontend and backend is hosted on heroku using docker images.
-** Docker Images
-[[https://hub.docker.com/repository/docker/hhai2105/semantic-frontend/general][Frontend]]
-[[https://hub.docker.com/repository/docker/hhai2105/semantic-backend/general][Backend]]
 ** Websites
 [[https://project-semantic.herokuapp.com/][Project-Semantic]]
+** Docker Images
+[[https://hub.docker.com/repository/docker/hhai2105/semantic-frontend/general][Frontend]]
+
+[[https://hub.docker.com/repository/docker/hhai2105/semantic-backend/general][Backend]]
 
 * Getting started
 ** Pulling from github
