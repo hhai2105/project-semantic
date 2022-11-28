@@ -1,8 +1,9 @@
 name: run backend on pull request
 on:
+  push:
+    branches: ["main"]
   pull_request:
     branches: ["main"]
-
 jobs:
   test_pull_request:
     runs-on: ubuntu-latest
@@ -12,4 +13,4 @@ jobs:
         with:
           node-version: 18
       - run: cd backend && npm ci
-      - run: cd backend && npm start
+      - run: cd backend && npm test
