@@ -1,5 +1,5 @@
 import express from 'express';
-import { GetAll,  SignIn, SignUp} from '../controllers/users.js';
+import { Delete, DeleteAll, GetAll,  SignIn, SignUp} from '../controllers/users.js';
 
 const router = express.Router();
 
@@ -21,6 +21,22 @@ router.route('/getall').get(GetAll);
 
 /**
  * @swagger
+ * /user/deleteall/:
+ *   post:
+ *     description: delete all users
+ *     tags: [Users]
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: successfully delete all users
+ *       404:
+ *         description: failed to delete all user
+ */
+router.route('/deleteall').post(DeleteAll);
+
+/**
+ * @swagger
  * /user/signin/:
  *   post:
  *     description: Login to the application
@@ -28,22 +44,22 @@ router.route('/getall').get(GetAll);
   *     requestBody:
  *      required: true
  *      content:
- *          application/json:
- *              schema:
- *                  type: object
- *                  required:
- *                      -email 
- *                      -password 
- *                  properties:
- *                      email:
- *                          type: string
- *                          description: user's email
- *                      password:
- *                          type: string
- *                          description: user's password
- *                  example:
- *                      email: abc@xyz.com
- *                      password: "123456789"
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            required:
+ *              -email 
+ *              -password 
+ *            properties:
+ *              email:
+ *                type: string
+ *                description: user's email
+ *              password:
+ *                type: string
+ *                description: user's password
+ *            example:
+ *              email: abc@xyz.com
+ *              password: "123456789"
  *     produces:
  *       - application/json
  *     responses:
@@ -73,5 +89,33 @@ router.route('/signin').post(SignIn);
  *         description: failed to sign up user
  */
 router.route('/signup').post(SignUp);
+
+/**
+ * @swagger
+ * /user/delete:
+ *   post:
+ *     tags: [Users]
+ *     description: delete a user based on their email
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               -email 
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: user's email
+ *             example:
+ *               email: abc@xyz.com
+ *     responses:
+ *       200:
+ *         description: Return success message, and JWT token
+ *       400:
+ *         description: failed to sign up user
+ */
+router.route('/delete').post(Delete);
 
 export default router;

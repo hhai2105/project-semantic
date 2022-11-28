@@ -4,6 +4,15 @@ import express from 'express';
 import User from '../models/user.js';
 const router = express.Router();
 
+export const DeleteAll = async (req, res) => {
+    try{
+		const result = await User.deleteMany({})
+		res.status(200).json({message: "success", result})
+    }catch(err){
+		res.status(404).json(err)
+    }
+}
+
 export const GetAll = async (req, res) => {
     try{
 		const users = await User.find()
@@ -42,3 +51,14 @@ export const SignUp = async (req,res) => {
 		res.status(400).json({error: err});
 	}
 };
+
+export const Delete = async (req, res) => {
+    try{
+		const {email} = req.body
+		const result = await User.deleteOne({email: email})
+		res.status(200).json({message: "success", result})
+    }catch(err){
+		res.status(404).json(err)
+    }
+}
+

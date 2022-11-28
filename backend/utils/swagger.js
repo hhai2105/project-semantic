@@ -3,7 +3,7 @@ import swaggerUi from 'swagger-ui-express'
 
 const options = {
 	definition: {
-		openapi: '3.0.0',
+		openapi: '3.0.1',
 		info: {
 			title: "project semantic's API",
 			version: '1.0.0',

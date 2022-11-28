@@ -5,7 +5,7 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "test": "jest --watchAll --verbose",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
         "start": "nodemon index.js"
     },
     "keywords": [],
@@ -32,5 +32,7 @@
         "swagger-ui-express": "^4.6.0"
     },
     "devDependencies": {
+        "@babel/preset-env": "^7.20.2",
+        "supertest": "^6.3.1"
     }
 }
