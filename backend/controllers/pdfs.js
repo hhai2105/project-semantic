@@ -10,6 +10,7 @@ import {writeFile} from 'node:fs';
 import fs from 'fs';
 import pdfjs from 'pdfjs-dist';
 import { fromPath } from "pdf2pic";
+
 const options = {
     density: 100,
     saveFilename: "untitled",
@@ -19,23 +20,23 @@ const options = {
 
 
 export const getPdfs = async (req,res) =>{
-          try{
-	      if(!req.userId) return res.json({message: "unauthenticated"});
-	      const pdf = await Pdf.find({userId: req.userId}).select('name');
-	      res.status(200).json(pdf);
-          }catch(err){
-	      res.status(400).json("error: " + err);
-          }
-      };
+    try{
+	    if(!req.userId) return res.json({message: "unauthenticated"});
+	    const pdf = await Pdf.find({userId: req.userId}).select('name');
+	    res.status(200).json(pdf);
+    }catch(err){
+	    res.status(400).json("error: " + err);
+    }
+};
 
 export const getPdfData = async (req,res) =>{
     try{
-	if(!req.userId) return res.json({message: "unauthenticated"});
+		if(!req.userId) return res.json({message: "unauthenticated"});
         console.log(req.body.id)
-	const pdf = await Pdf.findById(req.body.id).select('selectedFile');
-	res.status(200).json(pdf);
+		const pdf = await Pdf.findById(req.body.id).select('selectedFile');
+		res.status(200).json(pdf);
     }catch(err){
-	res.status(400).json("error: " + err);
+		res.status(400).json("error: " + err);
     }
 };
 
@@ -89,12 +90,12 @@ export const createPdf = async (req,res) => {
 
 export const deletePdf = async (req, res) =>{
     try{
-	if(!req.userId) return res.json({message: "unauthenticated"});
+		if(!req.userId) return res.json({message: "unauthenticated"});
         await Pdf.findByIdAndDelete(req.params.id);
         await Embed.deleteMany({pdfId: req.params.id});
         await PdfImg.deleteMany({pdfId: req.params.id});
         res.status(200).json("pdf deleted")
     }catch(err){
-	res.status(400).json("error: " + err);
+		res.status(400).json("error: " + err);
     }
 };

@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import pdfRouter from './routes/pdf.js';
 import searchRouter from './routes/search.js';
 import userRouter from './routes/user.js';
+import swaggerDocs from './utils/swagger.js'
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ mongoose.connect(process.env.ATLAS_URI, {useNewUrlParser: true})
 	.then(() => console.log("mongoDB database connection established successfully"))
 	.catch(err => console.log("cant connect to mongoDB database, error: " + err));
 
-app.listen(port, () => {
+app.listen(port, async () => {
 	console.log('Server is running on port: ' + port);
+	swaggerDocs(app, port)
 });

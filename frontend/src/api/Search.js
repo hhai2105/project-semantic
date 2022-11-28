@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const instance = axios.create({ baseURL: "https://still-gorge-91720.herokuapp.com/" });
+const instance = axios.create({ baseURL: "http://localhost:5000/" });
 
 instance.interceptors.request.use((req) => {
     if(localStorage.getItem("profile")){

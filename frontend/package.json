@@ -33,9 +33,9 @@
         "react-google-login": "^5.2.2",
         "react-redux": "^7.2.6",
         "react-router-dom": "^6.2.1",
-        "react-scripts": "5.0.0",
+        "react-scripts": "^5.0.1",
         "redux-thunk": "^2.4.1",
-        "serve": "^13.0.2",
+        "serve": "^14.1.2",
         "web-vitals": "^2.1.4"
     },
     "scripts": {
@@ -55,9 +55,5 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
-    },
-    "devDependencies": {
-        "eslint": "^8.15.0",
-        "eslint-plugin-react": "^7.30.0"
     }
 }
