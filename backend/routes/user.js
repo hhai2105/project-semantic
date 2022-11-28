@@ -41,7 +41,7 @@ router.route('/deleteall').post(DeleteAll);
  *   post:
  *     description: Login to the application
  *     tags: [Users]
-  *     requestBody:
+ *      requestBody:
  *      required: true
  *      content:
  *        application/json:
