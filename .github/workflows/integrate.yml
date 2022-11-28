@@ -4,6 +4,10 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+env:
+  ATLAS_URI: "mongodb+srv://a:a@cluster0.p5bctfe.mongodb.net/?retryWrites=true&w=majority"
+  PORT: "5000"
+  SECRET: "test"
 jobs:
   test_pull_request:
     runs-on: ubuntu-latest
