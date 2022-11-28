@@ -1,7 +1,17 @@
+import mongoose from 'mongoose';
 import supertest from 'supertest';
 import {app} from '../index.js';
 
 describe('test suite for user API', ()=> {
+	beforeAll(done => {
+		done()
+	})
+
+	afterAll(done => {
+		// Closing the DB connection allows Jest to exit successfully.
+		mongoose.connection.close()
+		done()
+	})
 	describe('create user', () =>{
 		it("return 200 when creating a new user", async() => {
 			const {statusCode} = await supertest(app).post("/user/signup").send({
